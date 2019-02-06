@@ -4,7 +4,7 @@
   "main": "index.js",
   "private": true,
   "scripts":  {
-    "start": "node ."
+    "start": "npm start"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
