@@ -1,8 +1,10 @@
 const { Router } = require('express')
 const Customer = require('./model')
+const Company = require('../companies/model')
 
 const router = new Router()
 
+// get all 
 router.get('/customers', (req, res, next) => {
   Customer
     .findAll()
@@ -12,9 +14,10 @@ router.get('/customers', (req, res, next) => {
     .catch(error => next(error))
 })
 
+// get one with id
 router.get('/customers/:id', (req, res, next) => {
   Customer
-    .findById(req.params.id)
+    .findById(req.params.id, { include: [Company] })
     .then(customer => {
       if (!customer) {
         return res.status(404).send({
@@ -26,6 +29,7 @@ router.get('/customers/:id', (req, res, next) => {
     .catch(error => next(error))
 })
 
+// create one
 router.post('/customers', (req, res, next) => {
   Customer
     .create(req.body)
@@ -40,6 +44,7 @@ router.post('/customers', (req, res, next) => {
     .catch(error => next(error))
 })
 
+// update one
 router.put('/customers/:id', (req, res, next) => {
   Customer
     .findById(req.params.id)
@@ -54,6 +59,7 @@ router.put('/customers/:id', (req, res, next) => {
     .catch(error => next(error))
 })
 
+// delete one
 router.delete('/customers/:id', (req, res, next) => {
   Customer
     .findById(req.params.id)
